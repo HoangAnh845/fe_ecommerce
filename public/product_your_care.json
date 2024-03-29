@@ -1,0 +1,73 @@
+[
+    {
+        "id": 1,
+        "name": "Sách: Sách Lược Đầu Tư Của Buffett (Tái Bản)",
+        "image": "https://salt.tikicdn.com/cache/280x280/ts/product/b7/c6/95/28b3693071a795d4333de33e7749efe7.jpg",
+        "price": 75000,
+        "delivery": "Giao thứ 5, 28/03"
+    },
+    {
+        "id": 2,
+        "name": "Ốp lưng lụa cho SamSung Galaxy S23 Ultra chính hãng Memumi siêu mỏng, chống vân tay - Hàng chính hãng",
+        "image": "https://salt.tikicdn.com/cache/280x280/ts/product/19/a5/c5/2a422d873b0129033b6824de4a29466d.jpg",
+        "price": 168000,
+        "delivery": "Giao thứ 5, 28/03"
+    },
+    {
+        "id": 3,
+        "name": "Gel Uống Bổ Sung GU Roctane Gel gói 32g",
+        "image": "https://salt.tikicdn.com/cache/280x280/ts/product/d1/84/4c/442923a903de264e96904bb2d0666325.png",
+        "price": 69000,
+        "delivery": "Giao thứ 5, 28/03"
+    },
+    {
+        "id": 4,
+        "name": "SÔCÔLA ĐEN 100% ALLUVIA NGUYÊN CHẤT KHÔNG ĐƯỜNG | EXTREME DARK CHOCOLATE 100% NO SUGAR",
+        "image": "https://salt.tikicdn.com/cache/280x280/ts/product/86/dd/6c/945efc79a2afdcb9f3c96bf0b046878c.png",
+        "price": 75000,
+        "delivery": "Giao thứ 5, 28/03"
+    },
+    {
+        "id": 5,
+        "name": "Găng Tay Cụt Ngón, Bao Tay Tập Gym Thể Thao Đa Năng Dành Cho Phượt Thủ Phong Cách",
+        "image": "https://salt.tikicdn.com/cache/280x280/ts/product/9a/1e/61/a0181240bf5e0911bc1b8a327136dbcd.jpg",
+        "price": 60000,
+        "delivery": "Giao ngày mai"
+    },
+    {
+        "id": 6,
+        "name": "Bánh Chocopie Hộp 20 Cái (660g)",
+        "image": "https://salt.tikicdn.com/cache/280x280/media/catalog/producttmp/3b/f3/37/f4ab323be2598dd39da1aabfa0e0dbc6.jpg",
+        "price": 80100,
+        "delivery": "Giao ngày mai"
+    },
+    {
+        "id": 7,
+        "name": "Xe Máy Honda Vario 125 Phiên Bản Thể Thao 2024",
+        "image": "https://salt.tikicdn.com/cache/280x280/ts/product/5c/f6/e4/27f288d7312766fdd3bcfad62c0afcd9.jpg",
+        "price": 42860000,
+        "delivery": "Nhận hàng tại cửa hàng"
+    },
+    {
+        "id": 8,
+        "name": "Combo Dove Phục Hồi Hư Tổn Dầu Gội 640g + Kem Xả 610g",
+        "image": "https://salt.tikicdn.com/cache/280x280/ts/product/89/29/93/8335b200a54e72c3c0e583c13109c88a.png",
+        "price": 236000,
+        "delivery": "Giao thứ 5, 28/03"
+    },
+    {
+        "id": 9,
+        "name": "Đầm 8 mảnh phối bèo cổ dễ thương-D029",
+        "image": "https://salt.tikicdn.com/cache/280x280/ts/product/26/1c/f4/81b3a1d0f0846b69808da07ab521a55e.jpg",
+        "price": 205000,
+        "delivery": "Giao thứ 6, 29/03"
+    },
+    {
+        "id": 10,
+        "name": "áo khoác, áo khoác nam trẻ trung cá tính mới nhất, áo dày dặn thoáng mát - H55",
+        "image": "https://salt.tikicdn.com/cache/280x280/ts/product/e8/8a/47/8c9510afbdbebcd14f2a0ffdff808a44.jpg",
+        "price": 260000,
+        "delivery": "Giao thứ 5, 28/03"
+    }
+
+]

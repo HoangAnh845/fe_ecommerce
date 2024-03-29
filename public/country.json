@@ -1,0 +1,27 @@
+{
+    "A": ["Ả Rập Xê Út", "Afghanistan", "Ai Cập", "Albania", "Algeria", "Ấn Độ", "Andorra", "Angola", "Anh", "Antigua và Barbuda", "Áo", "Argentina", "Armenia", "Azerbaijan"],
+    "B": ["Ba Lan", "Bắc Macedonia", "Bahamas", "Bahrain", "Bangladesh", "Barbados", "Belarus", "Belize", "Bénin", "Bhutan", "Bỉ", "Bờ Biển Ngà", "Bồ Đào Nha", "Bolivia", "Bosnia và Herzegovina", "Botswana", "Brazil", "Brunei", "Bulgaria", "Burkina Faso", "Burundi"],
+    "C": ["Các tiểu vương quốc Ả Rập Thống nhất", "Cameroon", "Campuchia", "Canada", "Cape", "Chad", "Chile", "Colombia", "Comoros", "Cộng hòa dân chủ Congo", "Cộng hòa Dominican", "Cộng hòa Séc", "Cộng hòa Trung Phi", "Costa Rica", "Croatia", "Cuba"],
+    "Đ": ["Đài Loan (Trung Quốc)", "Đan Mạch", "Djibouti", "Dominica", "Đông Timor", "Đức"],
+    "E": ["Ecuador", "El Salvador", "Eritrea", "Estonia", "Ethiopia"],
+    "F": ["Fiji"],
+    "G": ["Gabon", "Gambia", "Georgia", "Ghana", "Grenada", "Guatemala", "Guinea", "Guinea Xích đạo", "Guinea-Bissau", "Guyana"],
+    "H": ["Hà Lan", "Haiti", "Hàn Quốc", "Hoa Kỳ", "Honduras", "Hồng Kông (Trung Quốc)", "Hungary", "Hy Lạp"],
+    "I": ["Iceland", "Indonesia", "Iran", "Iraq", "Ireland", "Israel"],
+    "J": ["Jamaica", "Jordan"],
+    "K": ["Kazakhstan", "Kenya", "Kiribati", "Kosovo", "Kuwait", "Kyrgyzstan"],
+    "L": ["Lào", "Latvia", "Lesotho", "Liban", "Liberia", "Libya", "Liechtenstein", "Liên bang Micronesia", "Lithuania", "Luxembourg"],
+    "M": ["Ma Cao(Trung Quốc)", "Ma-rốc", "Madagascar", "Malawi", "Malaysia", "Maldives", "Mali", "Malta", "Mauritania", "Mauritius", "Mexico", "Moldova", "Monaco", "Mông Cổ", "Montenegro", "Mozambique", "Myanmar"],
+    "N": ["Na Uy", "Nam Phi", "Nam Sudan", "Namibia", "Nauru", "Nepal", "New Zealand", "Nga", "Nhật Bản", "Nicaragua", "Niger", "Nigeria"],
+    "O": ["Oman"],
+    "P": ["Pakistan", "Palau", "Palestine", "Panama", "Papua New Guinea", "Paraguay", "Peru", "Phần Lan", "Pháp", "Philippines", "Poland", "Bồ Đào Nha"],
+    "Q": ["Qatar"],
+    "R": ["Romania", "Nga"],
+    "S": ["Salvador", "Samoa", "San Marino", "São Tomé và Príncipe", "Senegal", "Serbia", "Seychelles", "Sierra Leone", "Singapore", "Síp", "Slovakia", "Slovenia", "Solomon Islands", "Somalia", "Sri Lanka", "St. Kitts và Nevis", "St. Lucia", "St. Vincent và Grenadines", "Sudan", "Suriname", "Swaziland", "Switzerland", "Syria"],
+    "T": ["Tajikistan", "Tanzania", "Tây Ban Nha", "Tây Samoa", "Thái Lan", "Thổ Nhĩ Kỳ", "Thụy Điển", "Thụy Sĩ", "Togo", "Tonga", "Triều Tiên", "Trinidad và Tobago", "Trung Quốc", "Tunisia", "Turkmenistan", "Tuvalu"],
+    "U": ["Úc", "Ukraina", "Uruguay", "Uzbekistan"],
+    "V": ["Vanuatu", "Vatican", "Venezuela", "Việt Nam"],
+    "Y": ["Ý","Yemen"],
+    "Z": ["Zambia", "Zimbabwe"]
+
+}

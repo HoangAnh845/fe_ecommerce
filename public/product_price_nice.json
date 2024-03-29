@@ -1,0 +1,50 @@
+[
+    {
+        "discount": 24,
+        "image": "https://salt.tikicdn.com/cache/280x280/ts/product/e3/97/5a/aa11fba0ff1d69f18aae454b22e5bc76.jpg",
+        "price": 132000,
+        "total_sell": 0
+    },
+    {
+        "discount": 25,
+        "image": "https://salt.tikicdn.com/cache/280x280/ts/product/63/c2/d5/cd04035bfbc19cd24f2eda229a440f01.jpg",
+        "price": 519000,
+        "total_sell": 30
+    },
+    {
+        "discount": 35,
+        "image": "https://salt.tikicdn.com/cache/280x280/ts/product/d7/3c/17/c807a27bc03b4f8176c4f7fd89b94ff9.jpg",
+        "price": 98000,
+        "total_sell": 50
+    },
+    {
+        "discount": 23,
+        "image": "https://salt.tikicdn.com/cache/280x280/ts/product/f0/0a/44/1db210b3332da33c457f63869857588d.jpg",
+        "price": 451000,
+        "total_sell": 40
+    },
+    {
+        "discount": 39,
+        "image": "https://salt.tikicdn.com/cache/280x280/ts/product/14/02/bf/6cf50d8c1c59af77d1dd0c180c266ee5.png",
+        "price": 173000,
+        "total_sell": 0
+    },
+    {
+        "discount": 49,
+        "image": "https://salt.tikicdn.com/cache/280x280/ts/product/18/ec/ff/964dfa20e1f659e563e2672f5d1c7d4c.png",
+        "price": 46000,
+        "total_sell": 50
+    },
+    {
+        "discount": 43,
+        "image": "https://salt.tikicdn.com/cache/280x280/ts/product/0d/5e/ad/06b13fe2b726008b6139fafc82776474.jpg",
+        "price": 341000,
+        "total_sell": 40
+    },
+    {
+        "discount": 39,
+        "image": "https://salt.tikicdn.com/cache/280x280/ts/product/2a/4c/4b/f789b3e23fb3f6ae02b3023755aa15f2.jpg",
+        "price": 99000,
+        "total_sell": 0
+    }
+]

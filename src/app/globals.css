@@ -1,0 +1,67 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --foreground-rgb: 0, 0, 0;
+  --background-start-rgb: 214, 219, 220;
+  --background-end-rgb: 255, 255, 255;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --foreground-rgb: 255, 255, 255;
+    --background-start-rgb: 0, 0, 0;
+    --background-end-rgb: 0, 0, 0;
+  }
+}
+
+/* body { */
+  /* color: rgb(var(--foreground-rgb)); */
+  /* background: linear-gradient(
+      to bottom,
+      transparent,
+      rgb(var(--background-end-rgb))
+    )
+    rgb(var(--background-start-rgb)); */
+/* } */
+
+@layer utilities {
+  .text-balance {
+    text-wrap: balance;
+  }
+}
+
+
+.slick-dots .slick-active div{
+  background-color: rgba(0, 0, 255, 0.603) !important;
+}
+
+.dots-paging_image ul{
+  display: flex;  
+  justify-content:flex-start;
+  gap: 5px;
+  padding: 0;
+}
+
+.dots-paging_image ul .slick-active{
+  border: 2px solid rgba(0, 0, 255, 0.603) !important;
+}
+
+.dots-paging_image ul li{
+  border: 1px solid #EEEEF3;
+  padding: 3px;
+  border-radius: 5px;
+  width: 50px;
+  height: auto;
+}
+
+
+::-webkit-scrollbar {
+  width: 0px;
+  height: 0px;
+}
+
+::-webkit-scrollbar-track {
+  margin-top: -20px;
+}
