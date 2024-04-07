@@ -1,5 +1,6 @@
 "use client";
 import useWindowSize from "@/hooks/useWindowSize";
+import { useState } from "react";
 import { Box } from "@mui/material";
 import Image from "next/image";
 import React from "react";
@@ -15,46 +16,10 @@ import ProductFilter from "../product/ProductFilter";
 import Footer from "../Footer";
 // import cheerio from 'cheerio'; // Cái này để parse html
 
-function CategoryLayout({
-  title,
-  product_price,
-  product_new,
-  product_tikibest,
-  product_genuine,
-  product_list,
-}: {
-  title: string;
-  product_price: Array<object>;
-  product_new: Array<object>;
-  product_tikibest: Array<object>;
-  product_genuine: Array<object>;
-  product_list: Array<object>;
-}) {
+function CategoryLayout({ title, data }: { title: string; data: Array<any> }) {
   const size = useWindowSize();
   const isMobile = size.width < 768;
   const [expanded, setExpanded] = React.useState<boolean>(false);
-  const [dataExpand, setDataExpand] = React.useState([
-    {
-      image:
-        "https://salt.tikicdn.com/cache/100x100/ts/category/cc/66/3d/4e4f1b8b1e772fe9e09611c6bec98746.png",
-      name: "English Books",
-    },
-    {
-      image:
-        "https://salt.tikicdn.com/cache/100x100/ts/category/53/0f/bc/f6e936554ec845b45af8f94cbd4f1569.png",
-      name: "Sách tiếng Việt",
-    },
-    {
-      image:
-        "https://salt.tikicdn.com/cache/100x100/ts/category/45/ab/0f/cffe9f60a7b37e0f87a9c50c4478aed9.png",
-      name: "Văn phòng phẩm",
-    },
-    {
-      image:
-        "https://salt.tikicdn.com/cache/100x100/ts/category/17/59/4f/af1292bf74c4d2862afd269bdfd42a62.png",
-      name: "Quà lưu niệm",
-    },
-  ]);
 
   const slider = () => {
     return [
@@ -171,61 +136,61 @@ function CategoryLayout({
     ));
   };
 
-  const CategoryHot = () => {
-    return [
-      {
-        image:
-          "https://salt.tikicdn.com/cache/280x280/ts/category/33/f4/5b/049d91f3ede87f206498aa3e30d27eb0.png",
-        name: "Sách tư duy - Kỹ năng sống",
-      },
-      {
-        image:
-          "https://salt.tikicdn.com/cache/280x280/ts/category/f0/de/c7/b099ef3717561ef0867cee2c4910bfb3.png",
-        name: "Truyện ngắn - Tản văn - Tạp Văn",
-      },
-      {
-        image:
-          "https://salt.tikicdn.com/cache/280x280/ts/product/5e/18/24/2a6154ba08df6ce6161c13f4303fa19e.jpg",
-        name: "Tiểu Thuyết",
-      },
-      {
-        image:
-          "https://salt.tikicdn.com/cache/280x280/media/catalog/product/k/h/khi-hoi-tho-hoa-thinh-khong.u5464.d20170726.t170655.288851.jpg",
-        name: "Tiểu sử - Hồi ký",
-      },
-      {
-        image:
-          "https://salt.tikicdn.com/cache/280x280/ts/product/e1/04/31/7763d9035552760f627c34acfec0e12f.jpg",
-        name: "Sách Học Tiếng Anh",
-      },
-      {
-        image:
-          "https://salt.tikicdn.com/cache/280x280/ts/product/45/3b/fc/aa81d0a534b45706ae1eee1e344e80d9.jpg",
-        name: "Tác phẩm kinh điển",
-      },
-      {
-        image:
-          "https://salt.tikicdn.com/cache/280x280/ts/product/23/56/86/a538698ead7dc2f693d1e9778417317d.jpg",
-        name: "Truyện trinh thám",
-      },
-      {
-        image:
-          "https://salt.tikicdn.com/cache/280x280/ts/product/8e/32/3d/e4487c4c7e335bbda4f06dd54d8e35b8.jpg",
-        name: "Truyện Giả tưởng - Huyền Bí - Phiêu Lưu",
-      },
-    ].map((item, index) => (
-      <div className=" w-[172px] py-2 px-5" key={index}>
-        <Image
-          className="rounded-full mx-auto"
-          alt={""}
-          width={150}
-          height={150}
-          src={item.image}
-        />
-        <div className="text-center font-medium text-sm mt-2 ">{item.name}</div>
-      </div>
-    ));
-  };
+  // const CategoryHot = () => {
+  //   return [
+  //     {
+  //       image:
+  //         "https://salt.tikicdn.com/cache/280x280/ts/category/33/f4/5b/049d91f3ede87f206498aa3e30d27eb0.png",
+  //       name: "Sách tư duy - Kỹ năng sống",
+  //     },
+  //     {
+  //       image:
+  //         "https://salt.tikicdn.com/cache/280x280/ts/category/f0/de/c7/b099ef3717561ef0867cee2c4910bfb3.png",
+  //       name: "Truyện ngắn - Tản văn - Tạp Văn",
+  //     },
+  //     {
+  //       image:
+  //         "https://salt.tikicdn.com/cache/280x280/ts/product/5e/18/24/2a6154ba08df6ce6161c13f4303fa19e.jpg",
+  //       name: "Tiểu Thuyết",
+  //     },
+  //     {
+  //       image:
+  //         "https://salt.tikicdn.com/cache/280x280/media/catalog/product/k/h/khi-hoi-tho-hoa-thinh-khong.u5464.d20170726.t170655.288851.jpg",
+  //       name: "Tiểu sử - Hồi ký",
+  //     },
+  //     {
+  //       image:
+  //         "https://salt.tikicdn.com/cache/280x280/ts/product/e1/04/31/7763d9035552760f627c34acfec0e12f.jpg",
+  //       name: "Sách Học Tiếng Anh",
+  //     },
+  //     {
+  //       image:
+  //         "https://salt.tikicdn.com/cache/280x280/ts/product/45/3b/fc/aa81d0a534b45706ae1eee1e344e80d9.jpg",
+  //       name: "Tác phẩm kinh điển",
+  //     },
+  //     {
+  //       image:
+  //         "https://salt.tikicdn.com/cache/280x280/ts/product/23/56/86/a538698ead7dc2f693d1e9778417317d.jpg",
+  //       name: "Truyện trinh thám",
+  //     },
+  //     {
+  //       image:
+  //         "https://salt.tikicdn.com/cache/280x280/ts/product/8e/32/3d/e4487c4c7e335bbda4f06dd54d8e35b8.jpg",
+  //       name: "Truyện Giả tưởng - Huyền Bí - Phiêu Lưu",
+  //     },
+  //   ].map((item, index) => (
+  //     <div className=" w-[172px] py-2 px-5" key={index}>
+  //       <Image
+  //         className="rounded-full mx-auto"
+  //         alt={""}
+  //         width={150}
+  //         height={150}
+  //         src={item.image}
+  //       />
+  //       <div className="text-center font-medium text-sm mt-2 ">{item.name}</div>
+  //     </div>
+  //   ));
+  // };
 
   const handleExtend = () => {
     setExpanded(true);
@@ -233,28 +198,27 @@ function CategoryLayout({
 
   const CategoryExplore = () => (
     <div className="flex flex-wrap ">
-      {(isMobile
-        ? expanded
-          ? dataExpand
-          : dataExpand.slice(0, 2)
-        : dataExpand
-      ).map((item, index) => (
-        <Box className="sm:w-6/12 lg:py-2 lg:px-5" key={index}>
-          <div className="sm:flex px-1 mb-2">
-            <div className="border lg:rounded-full p-1 overflow-hidden">
-              <Image
-                src={item?.image}
-                alt=""
-                width={isMobile ? 90 : 120}
-                height={isMobile ? 90 : 120}
-              />
-            </div>
-            <div className="font-light sm:bg-gray-200 w-full p-2 text-xs pr-2 lg:text-center">
-              {item?.name}
-            </div>
-          </div>
-        </Box>
-      ))}
+      {(isMobile ? (expanded ? data : data.slice(0, 2)) : data).map(
+        (item, index) =>
+          index > 0 && (
+            <Box className="sm:w-6/12 lg:py-2 lg:px-5" key={index}>
+              <div className="sm:flex px-1 mb-2 lg:w-[130px] ">
+                <div className="border lg:rounded-full p-1 overflow-hidden">
+                  <Image
+                    className="mx-auto "
+                    src={item.avatar}
+                    alt=""
+                    width={isMobile ? 90 : 100}
+                    height={isMobile ? 90 : 100}
+                  />
+                </div>
+                <div className="font-medium sm:bg-gray-200  p-2 text-xs pr-2 lg:text-center">
+                  {item?.name}
+                </div>
+              </div>
+            </Box>
+          )
+      )}
     </div>
   );
 
@@ -262,27 +226,8 @@ function CategoryLayout({
     <>
       <Box>
         <div className="mb-5 p-5 bg-white w-full font-medium text-2xl sm:hidden rounded-lg">
-          Nhà Sách Tiki
+          {title}
         </div>
-        <Box
-          className={`bg-white p-5 rounded-lg ${
-            isMobile && "pb-0"
-          } mb-5 sm:hidden`}
-        >
-          <h1 className="font-medium mb-3">Danh mục nổi bật</h1>
-          <Box className="w-full">
-            <div className="slider-container">
-              <Carousel
-                toshow={6}
-                dots={false}
-                toScroll={6}
-                arrows={true}
-                type="list"
-                list={CategoryHot()}
-              />
-            </div>
-          </Box>
-        </Box>
         <Box className={`sm:bg-white sm:p-5 sm:pt-0 rounded-lg mb-5`}>
           <div className="slider-container">
             <Carousel
@@ -336,58 +281,13 @@ function CategoryLayout({
             ))}
           </div>
         </Box>
-        <Box className={`bg-white p-5 rounded-lg mb-5 sm:hidden`}>
-          <Box className="flex justify-between items-center mb-5">
-            <div className="flex gap-4 sm:gap-2 items-center ">
-              <h1 className="font-medium">Giá tốt hôm nay</h1>
-              <div className="text-xs lg:text-sm">
-                <span className="inline-block py-1 px-2 bg-rose-500 text-white rounded-md">
-                  00
-                </span>
-                <span className="inline-block mx-1">:</span>
-                <span className="inline-block py-1 px-2 bg-rose-500 text-white rounded-md">
-                  00
-                </span>
-                <span className="inline-block mx-1">:</span>
-                <span className="inline-block py-1 px-2 bg-rose-500 text-white rounded-md">
-                  00
-                </span>
-              </div>
-            </div>
-            <div className="text-blue-500 text-md font-medium sm:text-sm">
-              Xem tất cả
-            </div>
-          </Box>
-          <Box className="w-full">
-            <ProductPriceNice />
-          </Box>
-        </Box>
         <Box className={`bg-white p-5 pb-0 rounded-lg mb-5 sm:hidden`}>
           <h1 className="font-medium mb-3">Khám phá theo danh mục</h1>
           <Box className="w-full">{CategoryExplore()}</Box>
         </Box>
-        <Box className={`bg-white p-5 rounded-lg mb-5 sm:hidden`}>
-          <h1 className="font-medium mb-3">Sản phẩm mới</h1>
-          <Box className="w-full">
-            <ProductGenuine />
-          </Box>
-        </Box>
-        <Box className={`bg-white p-5 rounded-lg mb-5 sm:hidden`}>
-          <h1 className="font-medium mb-3">Tiki Best</h1>
-          <Box className="w-full">
-            <ProductTikiBest />
-          </Box>
-        </Box>
-        <Box className={`bg-white p-5 rounded-lg mb-5 sm:hidden`}>
-          <h1 className="font-medium mb-3">Nhập khẩu chính hãng</h1>
-          <Box className="w-full">
-            <ProductGenuine />
-          </Box>
-        </Box>
         <Box className={`sm:bg-[#F5F5FA] sm:pt-1 rounded-lg mb-5`}>
-          <h1 className="font-medium mb-3 sm:hidden">Tất cả sản phẩm</h1>
           <Box className="w-full">
-            <ProductFilter />
+            <ProductFilter data={data[0]} />
           </Box>
         </Box>
       </Box>

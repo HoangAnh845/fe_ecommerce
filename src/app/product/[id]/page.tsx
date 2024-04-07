@@ -35,6 +35,8 @@ import ProductCanYouLike from "@/components/product/ProductCanYouLike";
 import Tabs from "@mui/material/Tabs";
 import Tab from "@mui/material/Tab";
 import ProductSuggest from "@/components/product/ProductSuggest";
+import { useParams } from "next/navigation";
+import { get_product_by_id } from "@/services/product";
 
 const infor_detail = [
   { name: "Thương hiệu", value: "NESCAFÉ" },
@@ -160,6 +162,9 @@ const ProductSafe = () => {
 };
 
 function ProductDetail() {
+  const { id } = useParams();
+  const [data, setData] = useState<any>({});
+  const [flag, setFlag] = useState(false);
   const size = useWindowSize();
   const isMoblie: boolean = size.width < 768;
   const parse = require("html-react-parser").default;
@@ -187,9 +192,29 @@ function ProductDetail() {
     setLoading(true);
   }, [isMoblie]);
 
-  if (!loading) {
+  async function fetchData() {
+    const res_product = await get_product_by_id(Number(id));
+    if (res_product.status === 200) {
+      setFlag(!flag);
+      setData(res_product.data);
+    } else {
+      console.log("error in login (service)");
+    }
+  }
+
+  // Dùng để gọi API khi component được render
+  useEffect(() => {
+    fetchData();
+  }, [id]);
+
+  if (!flag) {
     return <Loading />;
   }
+
+  var imageLinksString = data.image_other;
+
+  // Thay thế tất cả dấu nháy đơn bằng dấu nháy kép
+  imageLinksString = JSON.parse(imageLinksString.replace(/'/g, '"'));
 
   return (
     <>
@@ -220,16 +245,15 @@ function ProductDetail() {
                         toshow={1}
                         toScroll={1}
                         pagingImage={true}
-                        list={[
-                          "https://salt.tikicdn.com/cache/750x750/ts/product/1f/aa/13/c1c9134a703a904a05d176723b2e7d11.jpg",
-                          "https://salt.tikicdn.com/cache/750x750/ts/product/23/de/2f/1fad9fc466db7b6a9161e9b86bd6cc64.jpg",
-                          "https://salt.tikicdn.com/cache/750x750/ts/product/d8/fe/c8/d0d2ee9c2f084652aa3dd63e2945930c.jpg",
-                          "https://salt.tikicdn.com/cache/750x750/ts/product/38/38/89/162988f482a4bb42a8610eb8517a1d10.jpg",
-                        ]}
+                        list={imageLinksString}
                       />
                     </div>
                     {!isMoblie && ProductCharacter()}
-                    {isMoblie && <Box className="a absolute bottom-5 left-5 bg-gray-400 py-1 px-3 text-white rounded-xl">1/4</Box>}
+                    {isMoblie && (
+                      <Box className="a absolute bottom-5 left-5 bg-gray-400 py-1 px-3 text-white rounded-xl">
+                        1/4
+                      </Box>
+                    )}
                   </Item>
                 </Grid>
                 <Grid item xs={isMoblie ? 12 : 8}>
@@ -259,11 +283,7 @@ function ProductDetail() {
                         </span>
                       </div>
                     </div>
-                    <h1 className="lg:text-2xl lg:font-medium">
-                      [Tặng bình giữ nhiệt 1.5L]Combo 2 bịch cà phê hòa tan
-                      Nescafé 3in1 vị nguyên bản - công thức cải tiến (Bịch 46
-                      gói x 16g)
-                    </h1>
+                    <h1 className="lg:text-2xl lg:font-medium">{data.name}</h1>
                     <div className="flex items-center my-1 text-md sm:text-sm">
                       <span>5.0</span>
                       <div className="flex items-center ms-1 mr-3">
@@ -390,7 +410,7 @@ function ProductDetail() {
                   <Item className={`bg-white p-5 rounded-lg mb-5`}>
                     <h1 className="font-medium text-lg">Sản phẩm tương tự</h1>
                     <Box className="w-full mt-3">
-                      <ProductCanYouLike toshow={4}/>
+                      <ProductCanYouLike toshow={4} />
                     </Box>
                   </Item>
                   <Item className={`bg-white p-5 rounded-lg mb-5`}>
@@ -993,7 +1013,7 @@ function ProductDetail() {
               </Tabs>
             </Box>
             <Box className="w-full mt-3 ">
-              <ProductSuggest />
+              {/* <ProductSuggest /> */}
             </Box>
           </Item>
           <Item

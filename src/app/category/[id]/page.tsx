@@ -1,241 +1,83 @@
 "use client";
-import Navbar from "@/components/Navbar";
-import React from "react";
-import { useState } from "react";
+import React, { useState, useEffect, useMemo } from "react";
+import { useParams } from "next/navigation";
+import Image from "next/image";
 import Breadcrumbs from "@mui/material/Breadcrumbs";
 import { Box } from "@mui/material";
 import Typography from "@mui/material/Typography";
 import Link from "@mui/material/Link";
 import Stack from "@mui/material/Stack";
-import { FaAngleRight } from "react-icons/fa6";
 import Grid from "@mui/material/Grid";
-import useWindowSize from "@/hooks/useWindowSize";
 import Accordion, { AccordionSlots } from "@mui/material/Accordion";
 import AccordionSummary from "@mui/material/AccordionSummary";
 import AccordionDetails from "@mui/material/AccordionDetails";
-import { FaChevronDown } from "react-icons/fa";
 import Fade from "@mui/material/Fade";
-import CategoryLayout from "@/components/category/CategoryLayout";
-import Image from "next/image";
-import { IoIosStar } from "react-icons/io";
-import { FaAngleLeft } from "react-icons/fa6";
-import { FaBars } from "react-icons/fa";
-import { IoSearch } from "react-icons/io5";
-import { LuShoppingCart } from "react-icons/lu";
 import Drawer from "@mui/material/Drawer";
-import { FaChevronRight } from "react-icons/fa";
-import { IoMdHome } from "react-icons/io";
-import { HiMiniBars3 } from "react-icons/hi2";
-import { HiMiniUserCircle } from "react-icons/hi2";
-import { IoIosNotifications } from "react-icons/io";
+
+import Navbar from "@/components/Navbar";
+import CategoryLayout from "@/components/category/CategoryLayout";
 import Footer from "@/components/Footer";
 
-function handleClick(event: React.MouseEvent<HTMLAnchorElement, MouseEvent>) {
-  event.preventDefault();
-  console.info("You clicked a breadcrumb.");
-}
+import useWindowSize from "@/hooks/useWindowSize";
 
-function CategoryChildren() {
-  // Dùng để mở rộng hoặc thu gọn danh mục
-  const [expanded, setExpanded] = useState(false);
-  const handleExpansion = () => {
-    setExpanded((prevExpanded) => !prevExpanded);
-  };
+import { get_all_category } from "@/services/category";
 
-  return [
-    {
-      parent: "English Books",
-      children: [
-        "Business & Economics",
-        "Children's Books",
-        "Computers & Technology",
-        "Cookbooks, Food & Wine",
-        "Crafts, Hobbies & Home",
-        "Education & Teaching",
-        "Engineering & Transportation",
-        "Health, Fitness & Dieting",
-        "History",
-        "Humor & Entertainment",
-        "Law",
-        "Literature & Fiction",
-        "Medical Books",
-        "Mystery, Thriller & Suspense",
-        "Parenting & Relationships",
-        "Politics & Social Sciences",
-        "Reference",
-        "Religion & Spirituality",
-        "Romance",
-        "Science & Math",
-        "Science Fiction & Fantasy",
-        "Self-Help",
-        "Sports & Outdoors",
-        "Teen & Young Adult",
-        "Test Preparation",
-        "Travel",
-      ],
-    },
-    {
-      parent: "Sách tiếng Viết",
-      children: [
-        "Sách văn học",
-        "Sách kinh tế",
-        "Sách thiếu nhi",
-        "Sách ngoại ngữ",
-        "Sách giáo trình",
-        "Sách chuyên ngành",
-        "Sách tham khảo",
-        "Sách tự nhiên",
-        "Sách kỹ năng sống",
-        "Sách tâm lý",
-        "Sách học ngoại ngữ",
-        "Sách học nghề",
-        "Sách học trung học",
-        "Sách học đại học",
-        "Sách học cao đẳng",
-        "Sách học tiểu học",
-        "Sách học mầm non",
-        "Sách học phổ thông",
-        "Sách học trung học cơ sở",
-        "Sách học trung học phổ thông",
-        "Sách học đại học",
-        "Sách học cao đẳng",
-        "Sách học tiểu học",
-        "Sách học mầm non",
-        "Sách học phổ thông",
-        "Sách học trung học cơ sở",
-        "Sách học trung học phổ thông",
-        "Sách học đại học",
-        "Sách học cao đẳng",
-        "Sách học tiểu học",
-        "Sách học mầm non",
-        "Sách học phổ thông",
-        "Sách học trung học cơ sở",
-        "Sách học trung học phổ thông",
-        "Sách học đại học",
-        "Sách học cao đẳng",
-        "Sách học tiểu học",
-        "Sách học mầm non",
-        "Sách học phổ thông",
-        "Sách học trung học cơ sở",
-        "Sách học trung học phổ thông",
-        "Sách học đại học",
-        "Sách học cao đẳng",
-        "Sách học tiểu học",
-        "Sách học mầm non",
-        "Sách học phổ thông",
-        "Sách học trung học cơ sở",
-        "Sách học trung học phổ thông",
-        "Sách học đại học",
-        "Sách học cao đẳng",
-        "Sách học tiểu học",
-        "Sách học mầm non",
-      ],
-    },
-    {
-      parent: "Văn phòng phẩm",
-      children: [
-        "Dụng Cụ Văn Phòng",
-        "Giấy In",
-        "Bút Viết",
-        "Bìa và Bìa Cứng",
-        "Sổ Tay",
-        "Sổ Lịch",
-        "Sổ Học Sinh",
-        "Sổ Tài Khoản",
-        "Sổ Hội Nghị",
-      ],
-    },
-    {
-      parent: "Quà lưu niệm",
-      children: [
-        "Thú Nhồi Bông",
-        "Gấu Bông",
-        "Búp Bê",
-        "Móc Khóa",
-        "Túi Xách",
-        "Balo",
-        "Ví",
-        "Bình Giữ Nhiệt",
-        "Ly Sứ",
-        "Đồng Hồ",
-        "Trang Sức",
-        "Quà Tặng",
-      ],
-    },
-  ].map((item, index) => (
-    <Box key={index}>
-      {index === 0 && (
-        <Accordion
-          expanded={true}
-          onChange={handleExpansion}
-          // slots={{ transition: Fade as AccordionSlots["transition"] }}
-          slotProps={{ transition: { timeout: 400 } }}
-          sx={{
-            "& .MuiAccordion-region": { height: expanded ? "auto" : 0 },
-            "& .MuiAccordionDetails-root": {
-              display: expanded ? "block" : "none",
-            },
-          }}
-        >
-          <AccordionSummary
-            expandIcon={<FaChevronDown />}
-            aria-controls={`id="panel${index}-content"`}
-            id={`id="panel${index}-header"`}
-          >
-            <Typography>{item.parent}</Typography>
-          </AccordionSummary>
-          <AccordionDetails>
-            {item.children.map((child, index) => (
-              <Box
-                key={index}
-                className="p-2 text-md hover:underline hover:text-blue-500 cursor-pointer"
-              >
-                {child}
-              </Box>
-            ))}
-          </AccordionDetails>
-        </Accordion>
-      )}
-      {index > 0 && (
-        <Accordion>
-          <AccordionSummary
-            expandIcon={<FaChevronDown />}
-            aria-controls={`id="panel${index}-content"`}
-            id={`id="panel${index}-header"`}
-          >
-            <Typography>{item.parent}</Typography>
-          </AccordionSummary>
-          <AccordionDetails className="">
-            {item.children.map((child, index) => (
-              <Box
-                key={index}
-                className="p-2 text-md hover:underline hover:text-blue-500 cursor-pointer"
-              >
-                {child}
-              </Box>
-            ))}
-          </AccordionDetails>
-        </Accordion>
-      )}
-    </Box>
-  ));
-}
+import {
+  FaChevronDown,
+  FaBars,
+  FaAngleLeft,
+  FaAngleRight,
+  FaChevronRight,
+} from "react-icons/fa";
+import { IoIosStar, IoMdHome, IoIosNotifications } from "react-icons/io";
+import { IoSearch } from "react-icons/io5";
+import { HiMiniBars3, HiMiniUserCircle } from "react-icons/hi2";
+import { LuShoppingCart } from "react-icons/lu";
+import Loading from "@/app/loading";
+import { log } from "console";
 
 function ViewCategory() {
+  const { id } = useParams();
+  const [data, setData] = useState<any>([
+    {
+      id: 0,
+      name: "",
+      category_children: [],
+    },
+  ]);
+  const [flag, setFlag] = useState(false);
   const size = useWindowSize();
   const isMobile: boolean = size.width < 768;
+  const [expanded, setExpanded] = useState<string | false>("panel0");
+  const [bread, setBread] = useState<string>("");
+
+  // const handleChange =
+  //   (panel: string) => (event: React.SyntheticEvent, newExpanded: boolean) => {
+  //     setExpanded(newExpanded ? panel : false);
+  //   };
+  // Thanh menu danh mục
+
+  async function fetchData() {
+    const res_category = await get_all_category(Number(id));
+    if (res_category.status === 200) {
+      setFlag(!flag);
+      setData(res_category.data);
+    } else {
+      console.log("error in login (service)");
+    }
+  }
+
+  // if (data.length > 1) {
+  //   setBread(data[0].name);
+  // }
+
+  // Bánh mì
   const breadcrumbs = [
-    <Link
-      underline="hover"
-      key="1"
-      color="inherit"
-      href="/"
-      onClick={handleClick}
-    >
+    <Link underline="hover" key="1" color="inherit" href="/">
       Trang chủ
     </Link>,
     <Typography key="3" color="text.primary">
-      Nhà sách Tiki
+      {data[0].name}
     </Typography>,
   ];
 
@@ -310,6 +152,16 @@ function ViewCategory() {
     </Box>
   );
 
+  // Dùng để gọi API khi component được render
+  useEffect(() => {
+    fetchData();
+  }, []); // [] là mảng dependency, nếu có giá trị thì sẽ gọi API khi giá trị thay đổi
+
+  // Chờ đợi dữ liệu
+  if (!data) {
+    return <Loading />;
+  }
+
   return (
     <>
       {!isMobile && <Navbar />}
@@ -346,7 +198,7 @@ function ViewCategory() {
       )}
       <Box className="bg-[#F5F5FA] lg:py-5 lg:pb-0">
         <div className="container mx-auto">
-          <Stack spacing={2} className="ps-2 sm:hidden">
+          <Stack spacing={2} className="ps-2 sm:hidden mb-8">
             <Breadcrumbs separator={<FaAngleRight />} aria-label="breadcrumb">
               {breadcrumbs}
             </Breadcrumbs>
@@ -355,13 +207,50 @@ function ViewCategory() {
             <Grid
               item
               xs={2}
-              className="sm:hidden"
               style={{ paddingTop: "0px" }}
+              className={`${data.length === 1 && "hidden"} sm:hidden`}
             >
               <h1 className="py-3 px-4 rounded-tl-lg rounded-tr-lg shadow-lg w-full bg-white font-bold">
                 Khám phá theo danh mục
               </h1>
-              <CategoryChildren />
+              <Box>
+                {(data || []).map(
+                  (item: any, index: number) =>
+                    index > 0 && (
+                      <Box className="" key={index}>
+                        <Accordion
+                          expanded={expanded === "panel" + index}
+                          onChange={(
+                            event: React.SyntheticEvent,
+                            newExpanded: boolean
+                          ) => {
+                            setExpanded(newExpanded ? "panel" + index : false);
+                          }}
+                        >
+                          <AccordionSummary
+                            expandIcon={item.category_children.length > 0 ? <FaChevronDown /> : ""}
+                            aria-controls={`panel${index}d-content`}
+                            id={`panel${index}d-header`}
+                          >
+                            <Typography>{item.name}</Typography>
+                          </AccordionSummary>
+                          <AccordionDetails className="">
+                            {item.category_children.map(
+                              (child: any, index: number) => (
+                                <Box
+                                  key={index}
+                                  className="p-2 text-md hover:underline hover:text-blue-500 cursor-pointer"
+                                >
+                                  {child.name}
+                                </Box>
+                              )
+                            )}
+                          </AccordionDetails>
+                        </Accordion>
+                      </Box>
+                    )
+                )}
+              </Box>
               <Box className="qc_category relative bg-white mt-4 rounded-lg">
                 <Image
                   src={
@@ -400,18 +289,11 @@ function ViewCategory() {
             </Grid>
             <Grid
               item
-              xs={isMobile ? 12 : 10}
+              xs={isMobile ? 12 : data.length === 1 ? 12 : 10}
               className="sss pt-0"
               style={{ paddingTop: "0px" }}
             >
-              <CategoryLayout
-                title=""
-                product_price={[]}
-                product_new={[]}
-                product_tikibest={[]}
-                product_genuine={[]}
-                product_list={[]}
-              />
+              <CategoryLayout title={data[0].name} data={data} />
             </Grid>
           </Grid>
         </div>
@@ -422,31 +304,44 @@ function ViewCategory() {
           <div className="my-3">
             Nhà sách là một trong những địa điểm đã gắn liền với tuổi thơ của
             nhiều người. Nơi đây không chỉ cung cấp cho chúng ta một nguồn kho
-            tàng tri thức quý giá mà còn bày bán rất nhiều món <span className="text-blue-500">quà lưu niệm</span> đáng
-            yêu cùng vô vàn món <span className="text-blue-500">văn phòng phẩm</span> khác. Cùng Tiki tìm hiểu thêm
-            những điều thú vị tại nhà sách qua bài viết dưới đây nhé.
+            tàng tri thức quý giá mà còn bày bán rất nhiều món{" "}
+            <span className="text-blue-500">quà lưu niệm</span> đáng yêu cùng vô
+            vàn món <span className="text-blue-500">văn phòng phẩm</span> khác.
+            Cùng Tiki tìm hiểu thêm những điều thú vị tại nhà sách qua bài viết
+            dưới đây nhé.
           </div>
-          <h1 className="text-2xl font-medium mb-3">Nhà sách - Thế giới tri thức và tinh hoa nhân loại</h1>
+          <h1 className="text-2xl font-medium mb-3">
+            Nhà sách - Thế giới tri thức và tinh hoa nhân loại
+          </h1>
           <div>
             Người ta thường nói “sách là một kho tàng vô giá” vì nó chứa đựng
             nhiều kiến thức bổ ích của nhân loại. Chính vì thế mà nhà sách, nơi
             được trưng bày hàng nghìn cuốn sách có thể nói là một thế giới tri
             thức và hội tụ đủ muôn vàng tinh hoa của các nền văn hóa khác nhau.
-            <br /><br />
+            <br />
+            <br />
             Một vài địa điểm bán sách nổi tiếng và đã xuất hiện từ lâu như nhà
             sách Fahasa, nhà sách Nhã Nam chắc hẳn là nơi đã lưu giữ kỷ niệm
             tuổi thơ của nhiều người. Những nhà sách này không chỉ bán mỗi sách
             mà còn “bán” cả niềm vui, sự hạnh phúc cho nhiều em nhỏ ở tuổi cắp
             sách đến trường.
-            <br /><br />
-            Nơi đây có nhiều loại sách khác nhau với đa dạng lĩnh vực từ <span className="text-blue-500">kinh tế</span> , văn hóa, nghệ thuật,...cho đến triết học hay <span className="text-blue-500">công nghệ</span>. Thêm vào
-            đó, những loại sách bao gồm các kiến thức về ẩm thực, <span className="text-blue-500">gia đình</span> cũng
-            có mặt tại đây. Do đó, nhà sách không chỉ đón tiếp mỗi học sinh,
-            sinh viên mà còn là thiên đường dành cho những ai ham học hỏi và cần
-            tìm đến kiến thức. 
-            <br /><br />
-            Tham khảo thêm về: <span className="text-blue-500">sách, truyện One Piece, Truyện
-            One Punch Man, Tokyo Revengers manga, Kính Vạn Hoa Chết Chóc</span>
+            <br />
+            <br />
+            Nơi đây có nhiều loại sách khác nhau với đa dạng lĩnh vực từ{" "}
+            <span className="text-blue-500">kinh tế</span> , văn hóa, nghệ
+            thuật,...cho đến triết học hay{" "}
+            <span className="text-blue-500">công nghệ</span>. Thêm vào đó, những
+            loại sách bao gồm các kiến thức về ẩm thực,{" "}
+            <span className="text-blue-500">gia đình</span> cũng có mặt tại đây.
+            Do đó, nhà sách không chỉ đón tiếp mỗi học sinh, sinh viên mà còn là
+            thiên đường dành cho những ai ham học hỏi và cần tìm đến kiến thức.
+            <br />
+            <br />
+            Tham khảo thêm về:{" "}
+            <span className="text-blue-500">
+              sách, truyện One Piece, Truyện One Punch Man, Tokyo Revengers
+              manga, Kính Vạn Hoa Chết Chóc
+            </span>
           </div>
         </div>
       </Box>

@@ -1,5 +1,10 @@
 module.exports = {
     images: {
-        domains: ['salt.tikicdn.com','vcdn.tikicdn.com'],
+        domains: ['salt.tikicdn.com', 'vcdn.tikicdn.com'],
     },
+    env: {
+        API_URL: "http://localhost:8000/api",
+        BEARER_TOKEN: "eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJhdWQiOiIxIiwianRpIjoiNDQ5NWFmNTFjMzdjYjY0ODk5Y2Y1ZGEzZWFiNTE1MDRiOGMxMmMxZDEwMTQ2NzgzMTExYjdjNzkzMGUxZDgyNzQ3NDYwOTRlNzlhOWU4ZDkiLCJpYXQiOjE3MTE2OTc5NjMuMDE3NjA4LCJuYmYiOjE3MTE2OTc5NjMuMDE3NjA4LCJleHAiOjE3MTI1NjE5NjMuMDAyMTA5LCJzdWIiOiIxIiwic2NvcGVzIjpbImFkbWluIl19.CNzQaWDSxQgVdNhgVT21-Zdiq_l-g_FF9aXX_cU4NkFtJY2VkDMztgarFUo4jgtr0byGYuk1gNsi8Of4SkjVW7mDPAQwnbYo1YFYXyhqpD1EMvw6teyXpsKOVqO9Xt0yyV-YErreSPbYDg53UboUutJq-Izh2TooRImXMbE0PtzCID0mrGjT3EoPaeyLLNLFtdlRIPk4vb2sVBZGk4R50vFH2HFf7ccjWFMBhgi-Hgj5WNr2GZw86VR2_ifBtNV_8rvBoVaucp6fJKkigVxcVqjxxEKmrgjZ9Te8MLsqHNqo9j6vNd7sl1vgx4bg81yCOVdzSwSgW4bWAfQr50JqLT4LKTYbqXnDrjHog35Orr8X7u2lGkxTEZNz5yEMjK9VbBFIqreh2sfPvmGvMGjKj1bAxxvoiLpJJlUyw5DplCNsMOAbzjoQY71FfKukWkFsODCpMq4DYqQ5aOClcDM8-htPgdn6uA_hw7tTwzXk0Gu5yrw4_ERIATQ3GbDTw5iH3rLdO1O_kJXaEZVWapAL-CqD0BRxwahR6ODxPb4TlYI6Z0z3jsfRSEGHIDNLGrcCN8SH0GJTrIo6-jgTwSW1vy8iavCcGufMAk0j1w75BKTeawkA4TkMsxV1D6bJ-oEWlNqMe8L4EtACOI7Kwcg-uDBHCYgPoTmcPB8nGgd0UqE"
+    },
+    reactStrictMode: false,  
 }

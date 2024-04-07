@@ -1,5 +1,5 @@
 "use client";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
 import Footer from "@/components/Footer";
 import Navbar from "@/components/Navbar";
 import { Box } from "@mui/material";
@@ -17,30 +17,34 @@ import useWindowSize from "@/hooks/useWindowSize";
 import ProductTikiBest from "@/components/product/ProductTikiBest";
 import ProductGenuine from "@/components/product/ProductGenuine";
 import ProductCanYouLike from "@/components/product/ProductCanYouLike";
-import ProductSuggest from "@/components/product/ProductSuggest";
 import Link from "next/link";
 import Loading from "./loading";
 import Tabs from "@mui/material/Tabs";
 import Tab from "@mui/material/Tab";
 import Carousel1 from "@/components/Carousel1";
+import ProductList from "@/components/product/ProductList";
 
 const category_bar = [
   {
+    category_id: 12,
     title: "Nhà Sách Tiki",
     imageUrl:
       "https://salt.tikicdn.com/cache/100x100/ts/category/ed/20/60/afa9b3b474bf7ad70f10dd6443211d5f.png",
   },
   {
+    category_id: 93,
     title: "Nhà Cửa - Đời Sống",
     imageUrl:
       "https://salt.tikicdn.com/cache/100x100/ts/category/f6/22/46/7e2185d2cf1bca72d5aeac385a865b2b.png",
   },
   {
+    category_id: 248,
     title: "Điện Thoại - Máy Tính Bảng",
     imageUrl:
       "https://salt.tikicdn.com/cache/100x100/ts/category/54/c0/ff/fe98a4afa2d3e5142dc8096addc4e40b.png",
   },
   {
+    category_id: 146,
     title: "Đồ Chơi - Mẹ & Bé",
     imageUrl:
       "https://salt.tikicdn.com/cache/100x100/ts/category/13/64/43/226301adcc7660ffcf44a61bb6df99b7.png",
@@ -51,11 +55,13 @@ const category_bar = [
       "https://salt.tikicdn.com/cache/100x100/ts/category/75/34/29/d900f845e51e95a2c41b5b035468f959.png",
   },
   {
+    category_id: 208,
     title: "Điện Gia Dụng",
     imageUrl:
       "https://salt.tikicdn.com/cache/100x100/ts/category/61/d4/ea/e6ea3ffc1fcde3b6224d2bb691ea16a2.png",
   },
   {
+    category_id: 254,
     title: "Làm Đẹp - Sức Khỏe",
     imageUrl:
       "https://salt.tikicdn.com/cache/100x100/ts/category/73/0e/89/d7ca146de7198a6808580239e381a0c8.png",
@@ -71,6 +77,7 @@ const category_bar = [
       "https://salt.tikicdn.com/cache/100x100/ts/category/55/5b/80/48cbaafe144c25d5065786ecace86d38.png",
   },
   {
+    category_id: 1,
     title: "Bách Hóa Online",
     imageUrl:
       "https://salt.tikicdn.com/cache/100x100/ts/category/40/0f/9b/62a58fd19f540c70fce804e2a9bb5b2d.png",
@@ -271,6 +278,9 @@ const question = [
 export default function Home() {
   const scroll = useScrollY();
   const [isReady, setIsReady] = useState(false);
+  const [tikiBest, setTikiBest] = useState(207);
+  const [genuine, setGenuine] = useState(340);
+  const [canyoulike, setCanYouLike] = useState(213);
   const size = useWindowSize();
   const isMoblie: boolean = size.width < 768;
 
@@ -286,7 +296,7 @@ export default function Home() {
   }, [size]);
 
   // Thương hiệu chính hãng
-  const trademark = () => {
+  const trademark = useCallback(() => {
     return [
       "https://salt.tikicdn.com/cache/w750/ts/tikimsp/08/e9/a7/0f947e8af807b7a921a072ed28391118.png",
       "https://salt.tikicdn.com/cache/w750/ts/tikimsp/08/e9/a7/0f947e8af807b7a921a072ed28391118.png",
@@ -303,7 +313,7 @@ export default function Home() {
         />
       </div>
     ));
-  };
+  }, []);
 
   // other
   const otherImage = () => {
@@ -336,6 +346,8 @@ export default function Home() {
     return <Loading />; // Nếu chưa sẵn sàng, hiển thị component Loading
   }
 
+  
+
   return (
     <>
       <div>
@@ -346,21 +358,24 @@ export default function Home() {
               <Box className="bg-white  py-5 px-3 mb-5 ">
                 <h1 className="font-bold mb-3 pl-2">Danh mục</h1>
                 <ul>
-                  {category_bar.map((item, index) => (
-                    <li key={index}>
-                      <Link
-                        href={"/category/1"}
-                        className="flex items-center hover:bg-gray-200 py-2 px-3 rounded-lg cursor-pointer"
-                      >
-                        <img
-                          src={item.imageUrl}
-                          alt={item.title}
-                          className="w-10 h-9 mr-2"
-                        />
-                        <span className="text-[15px]">{item.title}</span>
-                      </Link>
-                    </li>
-                  ))}
+                  {category_bar.map((item, index) => {
+                    const settings = {}; // Declare the 'settings' variable
+                    return (
+                      <li key={index}>
+                        <Link
+                          href={`/category/${item?.category_id}`}
+                          className="flex items-center hover:bg-gray-200 py-2 px-3 rounded-lg cursor-pointer"
+                        >
+                          <img
+                            src={item.imageUrl}
+                            alt={item.title}
+                            className="w-10 h-9 mr-2"
+                          />
+                          <span className="text-[15px]">{item.title}</span>
+                        </Link>
+                      </li>
+                    );
+                  })}
                 </ul>
               </Box>
               <Box className="bg-white rounded-lg py-5 px-3 mb-5 ">
@@ -520,21 +535,53 @@ export default function Home() {
                 <Box className="w-full">
                   <Box className="w-full overflow-scroll">
                     <Box className="flex gap-2 w-max mb-2">
-                      <div className="border rounded-full border-gray-300 text-gray-400 px-3 py-1 sm:text-xs text-sm">
-                        Chăm sóc nhà cửa
+                      <div
+                        className={`cursor-pointer border rounded-full ${
+                          tikiBest === 207
+                            ? "border-2 border-blue-500 text-blue-500"
+                            : "border-gray-300 text-gray-400"
+                        }  px-3 py-1 sm:text-xs text-sm`}
+                        onClick={() => setTikiBest(207)}
+                      >
+                        Thế Thao - Dã Ngoại
                       </div>
-                      <div className="border rounded-full border-gray-300 text-gray-400 px-3 py-1 sm:text-xs text-sm">
-                        Điện Gia Dụng{" "}
+                      <div
+                        className={`cursor-pointer border rounded-full ${
+                          tikiBest === 208
+                            ? "border-2 border-blue-500 text-blue-500"
+                            : "border-gray-300 text-gray-400"
+                        }  px-3 py-1 sm:text-xs text-sm`}
+                        onClick={() => setTikiBest(208)}
+                      >
+                        Điện Gia Dụng
                       </div>
-                      <div className="border rounded-full border-gray-300 text-gray-400 px-3 py-1 sm:text-xs text-sm">
+                      <div
+                        className={`cursor-pointer border rounded-full ${
+                          tikiBest === 146
+                            ? "border-2 border-blue-500 text-blue-500"
+                            : "border-gray-300 text-gray-400"
+                        }  px-3 py-1 sm:text-xs text-sm`}
+                        onClick={() => setTikiBest(146)}
+                      >
                         Đồ chơi - Mẹ & Bé
                       </div>
-                      <div className="border rounded-full border-gray-300 text-gray-400 px-3 py-1 sm:text-xs text-sm">
+                      <div
+                        className={`cursor-pointer border rounded-full ${
+                          tikiBest === 248
+                            ? "border-2 border-blue-500 text-blue-500"
+                            : "border-gray-300 text-gray-400"
+                        }  px-3 py-1 sm:text-xs text-sm`}
+                        onClick={() => setTikiBest(248)}
+                      >
                         Điện Thoại - Máy Tính Bảng
                       </div>
                     </Box>
                   </Box>
-                  <ProductTikiBest />
+                  <ProductTikiBest
+                    category_id={tikiBest}
+                    tiki_best={1}
+                    genuine={1}
+                  />
                 </Box>
               </Box>
               <Box className="bg-white p-5 sm:pb-0 mb-5">
@@ -542,21 +589,53 @@ export default function Home() {
                 <Box className="w-full">
                   <Box className="w-full overflow-scroll">
                     <Box className="flex gap-2 w-max mb-2">
-                      <div className="border rounded-full border-gray-300 text-gray-400 px-3 py-1 sm:text-xs text-sm">
-                        Kem và sữa dưỡng da
+                      <div
+                        className={`cursor-pointer border rounded-full ${
+                          genuine === 340
+                            ? "border-2 border-blue-500 text-blue-500"
+                            : "border-gray-300 text-gray-400"
+                        }  px-3 py-1 sm:text-xs text-sm`}
+                        onClick={() => setGenuine(340)}
+                      >
+                        Nhân Sâm, Hồng Sâm
                       </div>
-                      <div className="border rounded-full border-gray-300 text-gray-400 px-3 py-1 sm:text-xs text-sm">
-                        Phấn nền, kem nền
+                      <div
+                        className={`cursor-pointer border rounded-full ${
+                          genuine === 273
+                            ? "border-2 border-blue-500 text-blue-500"
+                            : "border-gray-300 text-gray-400"
+                        }  px-3 py-1 sm:text-xs text-sm`}
+                        onClick={() => setGenuine(273)}
+                      >
+                        Phấn nước
                       </div>
-                      <div className="border rounded-full border-gray-300 text-gray-400 px-3 py-1 sm:text-xs text-sm">
-                        Kem chống năng
+                      <div
+                        className={`cursor-pointer border rounded-full ${
+                          genuine === 264
+                            ? "border-2 border-blue-500 text-blue-500"
+                            : "border-gray-300 text-gray-400"
+                        }  px-3 py-1 sm:text-xs text-sm`}
+                        onClick={() => setGenuine(264)}
+                      >
+                        Serum
                       </div>
-                      <div className="border rounded-full border-gray-300 text-gray-400 px-3 py-1 sm:text-xs text-sm">
-                        Hộp đựng thực phẩm
+                      <div
+                        className={`cursor-pointer border rounded-full ${
+                          genuine === 105
+                            ? "border-2 border-blue-500 text-blue-500"
+                            : "border-gray-300 text-gray-400"
+                        }  px-3 py-1 sm:text-xs text-sm`}
+                        onClick={() => setGenuine(105)}
+                      >
+                        Bình đựng nước
                       </div>
                     </Box>
                   </Box>
-                  <ProductGenuine />
+                  <ProductGenuine
+                    category_id={genuine}
+                    tiki_best={0}
+                    genuine={1}
+                  />
                 </Box>
               </Box>
               <Box className="bg-white p-5 sm:pb-0 mb-5">
@@ -579,70 +658,104 @@ export default function Home() {
                 <h1 className="font-medium mb-3">Bạn có thể thích</h1>
                 <Box className="w-full overflow-scroll">
                   <Box className="flex gap-2 w-max mb-2">
-                    <div className="border rounded-full border-gray-300 text-gray-400 px-3 py-1 sm:text-xs text-sm">
-                      Bình đun siêu tốc
+                    <div
+                      className={`cursor-pointer border rounded-full ${
+                        canyoulike === 213
+                          ? "border-2 border-blue-500 text-blue-500"
+                          : "border-gray-300 text-gray-400"
+                      }  px-3 py-1 sm:text-xs text-sm`}
+                      onClick={() => setCanYouLike(213)}
+                    >
+                      Lò vi sóng
                     </div>
-                    <div className="border rounded-full border-gray-300 text-gray-400 px-3 py-1 sm:text-xs text-sm">
-                      Dinh dường cho người lớn
+                    <div
+                      className={`cursor-pointer border rounded-full ${
+                        canyoulike === 234
+                          ? "border-2 border-blue-500 text-blue-500"
+                          : "border-gray-300 text-gray-400"
+                      }  px-3 py-1 sm:text-xs text-sm`}
+                      onClick={() => setCanYouLike(234)}
+                    >
+                      Bàn ủi, bàn là
                     </div>
-                    <div className="border rounded-full border-gray-300 text-gray-400 px-3 py-1 sm:text-xs text-sm">
-                      Adapter Sạc - Củ Sạc Thường
+                    <div
+                      className={`cursor-pointer border rounded-full ${
+                        canyoulike === 169
+                          ? "border-2 border-blue-500 text-blue-500"
+                          : "border-gray-300 text-gray-400"
+                      }  px-3 py-1 sm:text-xs text-sm`}
+                      onClick={() => setCanYouLike(169)}
+                    >
+                      Dinh dưỡng cho người lớn
                     </div>
-                    <div className="border rounded-full border-gray-300 text-gray-400 px-3 py-1 sm:text-xs text-sm">
+                    <div
+                      className={`cursor-pointer border rounded-full ${
+                        canyoulike === 250
+                          ? "border-2 border-blue-500 text-blue-500"
+                          : "border-gray-300 text-gray-400"
+                      }  px-3 py-1 sm:text-xs text-sm`}
+                      onClick={() => setCanYouLike(250)}
+                    >
                       Máy tính bảng
                     </div>
                   </Box>
                 </Box>
-                <ProductCanYouLike />
+                <ProductCanYouLike
+                  category_id={canyoulike}
+                  tiki_best={0}
+                  genuine={1}
+                />
               </Box>
-              <Box className="bg-white p-5 mb-5">
-                <h1 className="font-medium mb-3">Gợi ý hôm nay</h1>
-                <Tabs
-                  value={value}
-                  onChange={handleChange}
-                  aria-label="icon label tabs example"
-                  className="mb-3"
-                  variant="scrollable"
-                  scrollButtons="auto"
-                >
-                  <Tab
-                    icon={
-                      <img
-                        className="w-10 h-10"
-                        src="https://salt.tikicdn.com/cache/w100/ts/personalish/f9/27/b5/3a8e2286a1c8fb91b67acc5ee35f82f0.png"
-                      />
-                    }
-                    label="Dành cho bạn"
-                  />
-                  <Tab
-                    icon={
-                      <img
-                        className="w-10 h-10"
-                        src="https://salt.tikicdn.com/cache/w100/ts/ta/8e/6e/1a/f091aae16dcc6b9e57dee454a921e016.png"
-                      />
-                    }
-                    label="Top Deal Bán Chạy"
-                  />
-                  <Tab
-                    icon={
-                      <img
-                        className="w-10 h-10"
-                        src="	https://salt.tikicdn.com/cache/w100/ts/ta/37/58/02/85786ae9e80eea21104c096b6593b37d.jpg"
-                      />
-                    }
-                    label="Sách Xả Kho -60%"
-                  />
-                  <Tab
-                    icon={
-                      <img
-                        className="w-10 h-10"
-                        src="	https://salt.tikicdn.com/cache/w100/ts/ta/68/ee/84/317fe86a991b86cbb4ae956b46d04c60.jpg"
-                      />
-                    }
-                    label="SamSung"
-                  />
-                </Tabs>
-                <ProductSuggest />
+              <Box>
+                <Box className="bg-white px-5 mb-5">
+                  <h1 className="font-medium mb-3 pt-3">Gợi ý hôm nay</h1>
+                  <Tabs
+                    value={value}
+                    onChange={handleChange}
+                    aria-label="icon label tabs example"
+                    className="mb-3"
+                    variant="scrollable"
+                    scrollButtons="auto"
+                  >
+                    <Tab
+                      icon={
+                        <img
+                          className="w-10 h-10"
+                          src="https://salt.tikicdn.com/cache/w100/ts/personalish/f9/27/b5/3a8e2286a1c8fb91b67acc5ee35f82f0.png"
+                        />
+                      }
+                      label="Dành cho bạn"
+                    />
+                    <Tab
+                      icon={
+                        <img
+                          className="w-10 h-10"
+                          src="https://salt.tikicdn.com/cache/w100/ts/ta/8e/6e/1a/f091aae16dcc6b9e57dee454a921e016.png"
+                        />
+                      }
+                      label="Top Deal Bán Chạy"
+                    />
+                    <Tab
+                      icon={
+                        <img
+                          className="w-10 h-10"
+                          src="	https://salt.tikicdn.com/cache/w100/ts/ta/37/58/02/85786ae9e80eea21104c096b6593b37d.jpg"
+                        />
+                      }
+                      label="Sách Xả Kho -60%"
+                    />
+                    <Tab
+                      icon={
+                        <img
+                          className="w-10 h-10"
+                          src="	https://salt.tikicdn.com/cache/w100/ts/ta/68/ee/84/317fe86a991b86cbb4ae956b46d04c60.jpg"
+                        />
+                      }
+                      label="SamSung"
+                    />
+                  </Tabs>
+                </Box>
+                <ProductList />
               </Box>
               <Box className="bg-white px-5 rounded-lg">
                 <Footer />

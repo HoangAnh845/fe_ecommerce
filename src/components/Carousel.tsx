@@ -81,7 +81,7 @@ function Carousel({
         <div className="h-1 px-3 bg-gray-200 rounded-lg "></div>
       ),
   };
-
+  
   return (
     <Slider {...settings}>
       {type === "list" ? (
@@ -89,7 +89,7 @@ function Carousel({
       ) : type === "products" ? (
         {list}
       ) : type === "slider" ? (
-        list.map((item: any, index: number) => (
+        (list || []).map((item: any, index: number) => (
           <div key={index} className="p-2 outline-none lg:border rounded-lg mb-3">
             <img src={item} alt="carousel" className="w-full rounded-lg" />
           </div>

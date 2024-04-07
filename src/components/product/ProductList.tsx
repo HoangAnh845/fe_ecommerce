@@ -1,29 +1,33 @@
+"use client";
 import React from "react";
+import { useState, useEffect } from "react";
 import Tabs from "@mui/material/Tabs";
 import Tab from "@mui/material/Tab";
 import Carousel from "../Carousel";
-import { useState, useEffect } from "react";
 import Image from "next/image";
-import productCare from "../../../public/product_your_care.json";
 import Box from "@mui/material/Box";
 import useWindowSize from "@/hooks/useWindowSize";
+import Pagination from "@mui/material/Pagination";
+import Stack from "@mui/material/Stack";
 import { IoIosStar } from "react-icons/io";
-import { get_product_by_category } from "@/services/product";
+import { get_products } from "@/services/product";
 
-function ProductSuggest({ category_id }: { category_id: number }) {
+function ProductList() {
   const size = useWindowSize();
   const isMobile: boolean = size.width < 768;
+  const [paginate, setPaginate] = useState<any>({
+    toatal: 0,
+    currentPage: 1,
+  });
+  const [pageurl, setPageUrl] = useState(1);
   const [data, setData] = useState(null);
   const [flag, setFlag] = useState(false);
   async function fetchData() {
-    const res_product = await get_product_by_category(
-      Number(category_id),
-      0,
-      1
-    );
+    const res_product = await get_products(Number(pageurl));
     if (res_product.status === 200) {
       setFlag(!flag);
       setData(res_product.data);
+      setPaginate(res_product.pagination);
     } else {
       console.log("error in login (service)");
     }
@@ -32,7 +36,9 @@ function ProductSuggest({ category_id }: { category_id: number }) {
   // Dùng để gọi API khi component được render
   useEffect(() => {
     fetchData();
-  }, []);
+  }, [pageurl]);
+
+  //   console.log("LOG__data__",data);
 
   const listProduct = () =>
     (data || []).map((item: any, index) => (
@@ -56,9 +62,11 @@ function ProductSuggest({ category_id }: { category_id: number }) {
             height={isMobile ? 90 : 110}
           />
           <div className="mt-2 px-2 my-2">
-            <div className="text-gray-500 font-base text-xs w-full">
-              {item.name.length > 28
-                ? item.name.substring(0, isMobile ? 28 : 42) + "..."
+            <div
+              className={`text-gray-500 font-base text-xs w-full h-8 overflow-hidden`}
+            >
+              {item.name.length > 80
+                ? item.name.substring(0, isMobile ? 80 : 80) + "..."
                 : item.name}
             </div>
             <div className="flex my-1">
@@ -79,8 +87,8 @@ function ProductSuggest({ category_id }: { category_id: number }) {
               {item.price.toLocaleString("vi-VN")}
               <sup className="text-md underline text-ellipsis">đ</sup>
             </div>
-            <div className="border-t py-2 text-[12px] text-gray-500">
-              {item.note}
+            <div className="border-t py-2 lg:pb-0 text-[12px] text-gray-500">
+              {item.note.length > 20 ? item.note.substring(0, 20) : item.note}
             </div>
           </div>
         </div>
@@ -91,16 +99,20 @@ function ProductSuggest({ category_id }: { category_id: number }) {
       <Box className="w-full overflow-scroll">
         <Box className="flex flex-wrap">{listProduct()}</Box>
       </Box>
-      <Box className="text-center my-5">
-        <button
-          type="submit"
-          className="border border-blue-500 rounded-lg text-blue-500 px-5 w-6/12 lg:w-3/12 py-2"
-        >
-          Xem Thêm
-        </button>
+      <Box className="text-center w-max mx-auto my-5">
+        <Stack spacing={2}>
+          <Pagination
+            page={paginate.currentPage}
+            count={5}
+            shape="rounded"
+            onChange={(event: React.ChangeEvent<unknown>, page: number) => {
+              return setPageUrl(page);
+            }}
+          />
+        </Stack>
       </Box>
     </>
   );
 }
 
-export default ProductSuggest;
+export default ProductList;
